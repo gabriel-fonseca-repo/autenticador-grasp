@@ -6,7 +6,7 @@
 * Baixo acoplamento.
 * Alta coesão.
 * Polimorfismo.
-*
+* Information expert.
 
 ![Diagrama de relacionamento de classes](autenticador.png)
 
