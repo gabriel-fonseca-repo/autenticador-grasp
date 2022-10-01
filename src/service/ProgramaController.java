@@ -7,7 +7,6 @@ public class ProgramaController {
     Autenticador autenticador = new AutenticadorGmail();
 
     public void autenticar(Credenciais credenciais) {
-	autenticador.autenticar(credenciais);
+        autenticador.autenticar(credenciais);
     }
-
 }

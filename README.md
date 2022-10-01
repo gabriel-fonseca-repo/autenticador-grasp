@@ -1,6 +1,6 @@
 # Padrão de projeto GRASP.
 
-3 padrões GRASP escolhidos para serem utilizados na implementação de um algorítmo autenticador de email.
+3 padrões GRASP escolhidos para serem utilizados na implementação de um algorítmo autenticador de login de usuários.
 
 * Controller.
 * Baixo acoplamento.
@@ -11,6 +11,8 @@
 ![Diagrama de relacionamento de classes](autenticador.png)
 
 ## Classes records para armazenamento de informação.
+
+### Aplicação do padrão info expert:
 
 ```java
 public record Credenciais(String usuario, String senha) {
@@ -36,6 +38,8 @@ public class AutenticadorException extends RuntimeException {
 ```
 
 ## Interface Autenticator e suas implementações.
+
+### Aplicação do padrão polimorfismo:
 
 ```java
 public interface Autenticador {
@@ -140,6 +144,38 @@ public class GmailDatabase {
 
     public static List<Usuario> getUsuarios() {
         return usuarios;
+    }
+}
+```
+
+## Ponto de início da execução do programa.
+
+### Aplicação do padrão controller:
+
+```java
+public class ProgramaController {
+    Autenticador autenticador = new AutenticadorGmail();
+
+    public void autenticar(Credenciais credenciais) {
+        autenticador.autenticar(credenciais);
+    }
+}
+
+public class Programa {
+    public static void main(String[] args) {
+        ProgramaController controller = new ProgramaController();
+
+        Scanner input = new Scanner(System.in);
+
+        System.out.println("Login: ");
+        String usuario = input.next();
+
+        System.out.println("Senha: ");
+        String senha = input.next();
+
+        controller.autenticar(new Credenciais(usuario, senha));
+
+        input.close();
     }
 }
 ```
