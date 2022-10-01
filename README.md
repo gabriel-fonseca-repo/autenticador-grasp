@@ -4,17 +4,20 @@
 
 * Controller.
 * Baixo acoplamento.
-* Polimorfismo.
 * Alta coesão.
+* Polimorfismo.
+*
 
 ![Diagrama de relacionamento de classes](autenticador.png)
 
 ## Classes records para armazenamento de informação.
 
 ```java
-public record Credenciais(String usuario, String senha);
+public record Credenciais(String usuario, String senha) {
+}
 
-public record Usuario(String nome, String login, String senha);
+public record Usuario(String nome, String login, String senha) {
+}
 ```
 
 ## AutenticadorException para ser lançada ao ocorrer um erro no processo de autenticação.
@@ -107,6 +110,36 @@ public class AutenticadorHotmail implements Autenticador {
         if (!usuario.senha().equals(senha)) {
             throw new AutenticadorException("Usuário ou senha inválidos");
         }
+    }
+}
+```
+
+## Bancos de dados mocados.
+
+```java
+public class HotmailDatabase {
+
+    private static List<Usuario> usuarios = new ArrayList<>();
+
+    static {
+        usuarios.add(new Usuario("Gabriel", "gabriel@hotmail.com", "123456789"));
+    }
+
+    public static List<Usuario> getUsuarios() {
+        return usuarios;
+    }
+}
+
+public class GmailDatabase {
+
+    private static List<Usuario> usuarios = new ArrayList<>();
+
+    static {
+        usuarios.add(new Usuario("Edson", "edson@gmail.com", "12345678"));
+    }
+
+    public static List<Usuario> getUsuarios() {
+        return usuarios;
     }
 }
 ```
